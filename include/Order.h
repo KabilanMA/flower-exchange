@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <string>
 
 /**
  * @brief The Order class represents an order in a Flower exchange trading system.
