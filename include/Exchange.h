@@ -1,44 +1,66 @@
 #pragma once
 
-#include <vector>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
-#include <algorithm>
 
 #include "Order.h"
 #include "OrderBook.h"
 #include "TransactionRecorder.h"
 
+/**
+ * @brief The Exchange class represents a Flower exchange trading system.
+ *        It generates the execution report for the given order file.
+ */
 class Exchange
 {
 public:
-    // Constructor
+    /**
+     * @brief Construct a new Exchange object.
+     */
     Exchange();
 
-    // Read orders from order.csv // DONE
+    /**
+     * @brief Reads orders from a CSV file and initializes the order books.
+     *
+     * @param filename The name of the CSV file containing orders.
+     */
     void readOrders(const std::string &filename);
 
-    // Process orders and generate execute_rep.csv
+    /**
+     * @brief Processes orders and generates an execution report in a CSV file.
+     *
+     * @param outputFilename The name of the output CSV file.
+     */
     void generateReport(const std::string &outputFilename) const;
 
 private:
-    // Helper method to process a single order
+    /**
+     * @brief Processes a single order and updates the order books accordingly.
+     *
+     * @param order The order to be processed.
+     */
     void processOrder(Order &order);
+
+    /**
+     * @brief Validates input data in a row from a CSV file.
+     *
+     * @param row The vector representing a row of data from the CSV file.
+     * @return A string indicating the validation result.
+     */
     std::string validateInput(const std::vector<std::string> &row) const;
 
     // Orderbooks
-    OrderBook rose;
-    OrderBook lavender;
-    OrderBook lotus;
-    OrderBook tulip;
-    OrderBook orchid;
+    OrderBook rose;     ///< Order book for rose flowers.
+    OrderBook lavender; ///< Order book for lavender flowers.
+    OrderBook lotus;    ///< Order book for lotus flowers.
+    OrderBook tulip;    ///< Order book for tulip flowers.
+    OrderBook orchid;   ///< Order book for orchid flowers.
 
-    // logger
-    TransactionRecorder transactionRecorder;
+    // Logger
+    TransactionRecorder transactionRecorder; ///< Logger for recording transactions.
 
     // Orderbook for buy and sell orders
-    std::vector<Order> buyOrderbook;
-    std::vector<Order> sellOrderbook;
+    std::vector<Order> buyOrderbook;  ///< Vector representing the buy order book.
+    std::vector<Order> sellOrderbook; ///< Vector representing the sell order book.
 };
