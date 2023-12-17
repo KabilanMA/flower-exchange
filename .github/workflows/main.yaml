@@ -1,0 +1,46 @@
+name: C++ End-to-End Tests
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up C++ environment
+      uses: actions/setup-cpp@v2
+      with:
+        cpp-version: '17'
+
+    - name: Build the project
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Run End-to-End Tests
+      run: |
+        ./build/exchange_application ../Test_Samples/input/orders-1.csv ../Test_Samples/output/output1.csv
+        ./build/exchange_application ../Test_Samples/input/orders-2.csv ../Test_Samples/output/output2.csv
+        ./build/exchange_application ../Test_Samples/input/orders-3.csv ../Test_Samples/output/output3.csv
+        ./build/exchange_application ../Test_Samples/input/orders-4.csv ../Test_Samples/output/output4.csv
+        ./build/exchange_application ../Test_Samples/input/orders-5.csv ../Test_Samples/output/output5.csv
+        ./build/exchange_application ../Test_Samples/input/orders-6.csv ../Test_Samples/output/output6.csv
+        ./build/exchange_application ../Test_Samples/input/orders-7.csv ../Test_Samples/output/output7.csv
+
+    - name: Compare Output with Expected
+      run: |
+        diff -u ../Test_Samples/output/output1.csv ../Test_Samples/expected/1-execution_rep.csv
+        diff -u ../Test_Samples/output/output2.csv ../Test_Samples/expected/2-execution_rep.csv
+        diff -u ../Test_Samples/output/output3.csv ../Test_Samples/expected/3-execution_rep.csv
+        diff -u ../Test_Samples/output/output4.csv ../Test_Samples/expected/4-execution_rep.csv
+        diff -u ../Test_Samples/output/output5.csv ../Test_Samples/expected/5-execution_rep.csv
+        diff -u ../Test_Samples/output/output6.csv ../Test_Samples/expected/6-execution_rep.csv
+        diff -u ../Test_Samples/output/output7.csv ../Test_Samples/expected/7-execution_rep.csv
