@@ -39,10 +39,10 @@ protected:
 TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 {
     // Arrange: Set up the initial state or conditions
-    std::string orderCsvPath = "path/to/test_order.csv";
-    std::string executeRepCsvPath = "path/to/test_execute_rep.csv";
-    std::string expectedOutputPath = "path/to/expected_output.csv";
-    std::string programPath = "path/to/your/exchange_application/executable"; // Update with the actual path
+    std::string orderCsvPath = "../Test_Samples/order.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected_output.csv";
+    std::string programPath = "../../build/exchange_application";
 
     // Act: Perform the action you want to test (call the main functionality of your program)
     std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;

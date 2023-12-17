@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(ExchangeEndToEndTest)
 
 # Locate and include GTest
-find_package(GTest CONFIG REQUIRED PATHS "${CMAKE_SOURCE_DIR}/../vcpkg/installed/x64-linux/share/gtest")
+find_package(GTest CONFIG REQUIRED PATHS "${CMAKE_SOURCE_DIR}/../vcpkg/installed/arm64-osx/share/gtest")
 
 # Add the test executable
 add_executable(ExchangeEndToEndTest ExchangeTest.cpp)
