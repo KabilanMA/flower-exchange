@@ -31,11 +31,9 @@ protected:
             return ""; // Return an empty string if the file cannot be opened
         }
     }
-
-    // Declare any common variables used across tests
 };
 
-// End-to-end test for the full functionality of the system
+// End-to-end test for the input - 1
 TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 {
     // Arrange: Set up the initial state or conditions
@@ -57,7 +55,104 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
     EXPECT_EQ(generatedOutput, expectedOutput);
 }
 
-// Add more end-to-end test cases as needed for testing different scenarios
+// End-to-end test for the input 2
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+{
+    std::string orderCsvPath = "../Test_Samples/inputs/orders-2.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output/output-2.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected/2-execution_rep.csv";
+    std::string programPath = "../../build/exchange_application";
+
+    std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;
+    int result = system(command.c_str());
+
+    std::string generatedOutput = readFile(executeRepCsvPath);
+    std::string expectedOutput = readFile(expectedOutputPath);
+    EXPECT_EQ(generatedOutput, expectedOutput);
+}
+
+// End-to-end test for the input 3
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+{
+    std::string orderCsvPath = "../Test_Samples/inputs/orders-3.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output/output-3.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected/3-execution_rep.csv";
+    std::string programPath = "../../build/exchange_application";
+
+    std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;
+    int result = system(command.c_str());
+
+    std::string generatedOutput = readFile(executeRepCsvPath);
+    std::string expectedOutput = readFile(expectedOutputPath);
+    EXPECT_EQ(generatedOutput, expectedOutput);
+}
+
+// End-to-end test for the input 4
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+{
+    std::string orderCsvPath = "../Test_Samples/inputs/orders-4.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output/output-4.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected/4-execution_rep.csv";
+    std::string programPath = "../../build/exchange_application";
+
+    std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;
+    int result = system(command.c_str());
+
+    std::string generatedOutput = readFile(executeRepCsvPath);
+    std::string expectedOutput = readFile(expectedOutputPath);
+    EXPECT_EQ(generatedOutput, expectedOutput);
+}
+
+
+// End-to-end test for the input 5
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+{
+    std::string orderCsvPath = "../Test_Samples/inputs/orders-5.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output/output-5.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected/5-execution_rep.csv";
+    std::string programPath = "../../build/exchange_application";
+
+    std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;
+    int result = system(command.c_str());
+
+    std::string generatedOutput = readFile(executeRepCsvPath);
+    std::string expectedOutput = readFile(expectedOutputPath);
+    EXPECT_EQ(generatedOutput, expectedOutput);
+}
+
+
+// End-to-end test for the input 5
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+{
+    std::string orderCsvPath = "../Test_Samples/inputs/orders-5.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output/output-5.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected/5-execution_rep.csv";
+    std::string programPath = "../../build/exchange_application";
+
+    std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;
+    int result = system(command.c_str());
+
+    std::string generatedOutput = readFile(executeRepCsvPath);
+    std::string expectedOutput = readFile(expectedOutputPath);
+    EXPECT_EQ(generatedOutput, expectedOutput);
+}
+
+
+// End-to-end test for the input 7
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+{
+    std::string orderCsvPath = "../Test_Samples/inputs/orders-7.csv";
+    std::string executeRepCsvPath = "../Test_Samples/output/output-7.csv";
+    std::string expectedOutputPath = "../Test_Samples/expected/7-execution_rep.csv";
+    std::string programPath = "../../build/exchange_application";
+
+    std::string command = programPath + " " + orderCsvPath + " " + executeRepCsvPath;
+    int result = system(command.c_str());
+
+    std::string generatedOutput = readFile(executeRepCsvPath);
+    std::string expectedOutput = readFile(expectedOutputPath);
+    EXPECT_EQ(generatedOutput, expectedOutput);
+}
 
 // Entry point for running the tests
 int main(int argc, char **argv)
