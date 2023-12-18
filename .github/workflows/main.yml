@@ -12,10 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Build Project
+      run: cd ${{ github.workspace }} && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/toolchain.cmake .. && make
+
     - name: Install gtest manually
       run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp ./lib/*.a /usr/lib
 
-    - name: Build the tests
+    - name: Build GTest
       run: |
         cd ${{ github.workspace }}/test
         mkdir build
@@ -23,24 +26,16 @@ jobs:
         cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/toolchain.cmake ..
         make
 
-    - name: Run End-to-End Tests
+    - name: Generate Test Files
       run: |
-        ./build/exchange_application .test/Test_Samples/input/orders-1.csv .test/Test_Samples/output/output1.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-2.csv .test/Test_Samples/output/output2.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-3.csv .test/Test_Samples/output/output3.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-4.csv .test/Test_Samples/output/output4.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-5.csv .test/Test_Samples/output/output5.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-6.csv .test/Test_Samples/output/output6.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-7.csv .test/Test_Samples/output/output7.csv
-        ./build/exchange_application .test/Test_Samples/input/orders-8.csv .test/Test_Samples/output/output8.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-1.csv ${{ github.workspace }}/test/Test_Samples/output/output1.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-2.csv ${{ github.workspace }}/test/Test_Samples/output/output2.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-3.csv ${{ github.workspace }}/test/Test_Samples/output/output3.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-4.csv ${{ github.workspace }}/test/Test_Samples/output/output4.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-5.csv ${{ github.workspace }}/test/Test_Samples/output/output5.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-6.csv ${{ github.workspace }}/test/Test_Samples/output/output6.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-7.csv ${{ github.workspace }}/test/Test_Samples/output/output7.csv
+        ${{ github.workspace }}/build/exchange_application ${{ github.workspace }}/test/Test_Samples/input/orders-8.csv ${{ github.workspace }}/test/Test_Samples/output/output8.csv
 
-    - name: Compare Output with Expected
-      run: |
-        diff -u .test/Test_Samples/output/output1.csv .test/Test_Samples/expected/1-execution_rep.csv
-        diff -u .test/Test_Samples/output/output2.csv .test/Test_Samples/expected/2-execution_rep.csv
-        diff -u .test/Test_Samples/output/output3.csv .test/Test_Samples/expected/3-execution_rep.csv
-        diff -u .test/Test_Samples/output/output4.csv .test/Test_Samples/expected/4-execution_rep.csv
-        diff -u .test/Test_Samples/output/output5.csv .test/Test_Samples/expected/5-execution_rep.csv
-        diff -u .test/Test_Samples/output/output6.csv .test/Test_Samples/expected/6-execution_rep.csv
-        diff -u .test/Test_Samples/output/output7.csv .test/Test_Samples/expected/7-execution_rep.csv
-        diff -u .test/Test_Samples/output/output8.csv .test/Test_Samples/expected/8-execution_rep.csv
+    - name: Run Output Compare e2e test
+      run: cd ${{ github.workspace }}/test/build && ./ExchangeEndToEndTest
