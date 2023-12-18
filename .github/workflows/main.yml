@@ -11,12 +11,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Set up Vcpkg
+      uses: microsoft/vcpkg-setup@v2
+      with:
+        vcpkg-commit: '1c9ec1978a6b0c2b39c9e9554a96e3e275f7556e'
+
+    - name: Install GTest with Vcpkg
+      run: |
+        ./vcpkg install gtest
+
     - name: Build the tests
       run: |
         cd test
         mkdir build
         cd build
-        cmake ..
+        cmake -DCMAKE_TOOLCHAIN_FILE=${RUNNER_WORKSPACE}/vcpkg/scripts/buildsystems/vcpkg.cmake ..
         make
 
     - name: Run End-to-End Tests
