@@ -21,7 +21,6 @@ jobs:
         cd test
         mkdir build
         cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE=${RUNNER_WORKSPACE}/test ..
         make
 
     - name: Run End-to-End Tests
