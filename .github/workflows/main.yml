@@ -17,10 +17,10 @@ jobs:
 
     - name: Build the tests
       run: |
-        cd ${RUNNER_WORKSPACE}/test
+        cd ${{ github.workspace }}/test
         mkdir build
         cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE=${RUNNER_WORKSPACE}/toolchain.cmake ..
+        cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/toolchain.cmake ..
         make
 
     - name: Run End-to-End Tests
