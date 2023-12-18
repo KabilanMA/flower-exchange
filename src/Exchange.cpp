@@ -57,7 +57,7 @@ void Exchange::readOrders(const std::string &filename)
                 if (validationMessage == "Success")
                 {
                     Order order(clientOrderId, Order::stringToInstrumentType(instrument), side, price, quantity, true);
-                    processOrder(order);
+                    processOrder(order, validationMessage);
                 }
                 else
                 {
@@ -67,13 +67,13 @@ void Exchange::readOrders(const std::string &filename)
             catch (const std::invalid_argument &e)
             {
                 Order order;
-                transactionRecorder.recordTransaction(order.getOrderID(), row[0], row[1], row[2], "Reject", row[3], row[4]);
+                transactionRecorder.recordTransaction(order.getOrderID(), row[0], row[1], row[2], "Reject", row[3], row[4], validationMessage);
             }
         }
         else
         {
             Order order;
-            transactionRecorder.recordTransaction(order.getOrderID(), row[0], row[1], row[2], "Reject", row[3], row[4]);
+            transactionRecorder.recordTransaction(order.getOrderID(), row[0], row[1], row[2], "Reject", row[3], row[4], "Invalid Input Format");
         }
     }
 
@@ -81,21 +81,25 @@ void Exchange::readOrders(const std::string &filename)
 }
 
 // Helper method to process a single order
-void Exchange::processOrder(Order &order)
+void Exchange::processOrder(Order &order, const std::string validationMessage)
 {
     switch (order.getInstrument())
     {
     case Order::InstrumentType::Rose:
-        rose.processOrder(order, transactionRecorder);
+        rose.processOrder(order, transactionRecorder, validationMessage);
         break;
     case Order::InstrumentType::Lavender:
-        lavender.processOrder(order, transactionRecorder);
+        lavender.processOrder(order, transactionRecorder, validationMessage);
+        break;
     case Order::InstrumentType::Lotus:
-        lotus.processOrder(order, transactionRecorder);
+        lotus.processOrder(order, transactionRecorder, validationMessage);
+        break;
     case Order::InstrumentType::Orchid:
-        orchid.processOrder(order, transactionRecorder);
+        orchid.processOrder(order, transactionRecorder, validationMessage);
+        break;
     case Order::InstrumentType::Tulip:
-        tulip.processOrder(order, transactionRecorder);
+        tulip.processOrder(order, transactionRecorder, validationMessage);
+        break;
     default:
         break;
     }
@@ -111,12 +115,12 @@ void Exchange::generateReport(const std::string &outputFilename) const
         return;
     }
 
-    outputFile << "Order ID,Client Order ID,Instrument,Side,Exec Status,Quantity,Price\n";
+    outputFile << "Order ID,Client Order ID,Instrument,Side,Exec Status,Quantity,Price,Reason\n";
 
     // Write each object's attributes to CSV
     for (const auto &obj : transactionRecorder.getAllTransactions())
     {
-        outputFile << obj.getOrderID() << "," << obj.getClientOrderId() << "," << obj.getInstrument() << "," << obj.getSide() << "," << obj.getStatus() << "," << obj.getQuantity() << "," << obj.getPrice() << "\n";
+        outputFile << obj.getOrderID() << "," << obj.getClientOrderId() << "," << obj.getInstrument() << "," << obj.getSide() << "," << obj.getStatus() << "," << obj.getQuantity() << "," << obj.getPrice() << "," << obj.getReason() << "\n";
     }
 
     outputFile.close();

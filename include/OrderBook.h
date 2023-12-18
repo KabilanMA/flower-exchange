@@ -25,8 +25,9 @@ public:
      *
      * @param order The order to be processed.
      * @param transactionRecorder The transaction recorder for logging transactions.
+     * @param validationMessage Validation Message to record for each transaction.
      */
-    void processOrder(Order &order, TransactionRecorder &transactionRecorder);
+    void processOrder(Order &order, TransactionRecorder &transactionRecorder, const std::string validationMessage);
 
     /**
      * @brief Inserts a buy order into the order book.

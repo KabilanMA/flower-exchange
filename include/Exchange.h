@@ -39,8 +39,9 @@ private:
      * @brief Processes a single order and updates the order books accordingly.
      *
      * @param order The order to be processed.
+     * @param validationMessage Validation message for the order to record.
      */
-    void processOrder(Order &order);
+    void processOrder(Order &order, const std::string validationMessage);
 
     /**
      * @brief Validates input data in a row from a CSV file.

@@ -28,8 +28,9 @@ public:
      * @param status The status of the transaction.
      * @param quantity The quantity involved in the transaction.
      * @param price The price of the transaction.
+     * @param validationMessage Validation Message to record for each transaction.
      */
-    void recordTransaction(std::string orderID, std::string clientOrderID, Order::InstrumentType instrument, int side, std::string status, int quantity, double price);
+    void recordTransaction(std::string orderID, std::string clientOrderID, Order::InstrumentType instrument, int side, std::string status, int quantity, double price, const std::string validationMessage);
 
     /**
      * @brief Records a transaction with specified attributes.
@@ -41,8 +42,9 @@ public:
      * @param status The status of the transaction.
      * @param quantity The quantity involved in the transaction.
      * @param price The price of the transaction.
+     * @param validationMessage Validation Message to record for each transaction.
      */
-    void recordTransaction(std::string orderID, std::string clientOrderID, std::string instrument, std::string side, std::string status, std::string quantity, std::string price);
+    void recordTransaction(std::string orderID, std::string clientOrderID, std::string instrument, std::string side, std::string status, std::string quantity, std::string price, const std::string validationMessage);
 
     /**
      * @brief Gets all recorded transactions.

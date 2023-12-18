@@ -21,8 +21,9 @@ public:
      * @param status The status of the transaction.
      * @param quantity The quantity involved in the order transaction.
      * @param price The price of the order transaction.
+     * @param validationMessage Validation Message to record for each transaction.
      */
-    Transaction(std::string orderID, std::string clientOrderID, std::string instrument, std::string side, std::string status, std::string quantity, std::string price);
+    Transaction(std::string orderID, std::string clientOrderID, std::string instrument, std::string side, std::string status, std::string quantity, std::string price, const std::string validationMessage);
 
     /**
      * @brief Constructs a new Transaction object with specified transaction attributes for record purpose.
@@ -34,8 +35,9 @@ public:
      * @param status The status of the transaction.
      * @param quantity The quantity involved in the transaction.
      * @param price The price of the transaction.
+     * @param validationMessage Validation Message to record for each transaction.
      */
-    Transaction(std::string orderID, std::string clientOrderID, Order::InstrumentType instrument, int side, std::string status, int quantity, double price);
+    Transaction(std::string orderID, std::string clientOrderID, Order::InstrumentType instrument, int side, std::string status, int quantity, double price, const std::string validationMessage);
 
     // Getters
     /**
@@ -80,6 +82,12 @@ public:
      */
     std::string getPrice() const;
 
+    /**
+     * @brief Gets the transaction completion message.
+     * @return The reason of the transaction.
+     */
+    std::string getReason() const;
+
 private:
     /**
      * @brief Converts a double value to a string formatted as a money string.
@@ -96,4 +104,5 @@ private:
     std::string status;        ///< The status of the transaction.
     std::string quantity;      ///< The quantity involved in the transaction.
     std::string price;         ///< The price of the transaction.
+    std::string reason;        ///< Reason to indicate the transaction process.
 };

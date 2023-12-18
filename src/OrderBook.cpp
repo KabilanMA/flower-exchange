@@ -8,7 +8,7 @@ OrderBook::OrderBook(Order::InstrumentType name) : name(name)
 // sell order in ascending order
 // buy order in descending order
 
-void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecorder)
+void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecorder, const std::string validationMessage)
 {
     int baseQuantity = order.getQuantity();
     // insert according to sell order or buy order
@@ -23,17 +23,17 @@ void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecor
                 if (order.getQuantity() <= sellOrder->getQuantity()) // if the seller has more than the buyer requires
                 {
                     // buyer gets all the requests
-                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "Fill", baseQuantity, price);
+                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "Fill", baseQuantity, price, validationMessage);
 
                     if (order.getQuantity() == sellOrder->getQuantity()) // if the seller and buyer requires same amount
                     {
-                        transactionRecorder.recordTransaction(sellOrder->getOrderID(), sellOrder->getClientOrderId(), name, sellOrder->getSide(), "Fill", sellOrder->getQuantity(), price);
+                        transactionRecorder.recordTransaction(sellOrder->getOrderID(), sellOrder->getClientOrderId(), name, sellOrder->getSide(), "Fill", sellOrder->getQuantity(), price, validationMessage);
                         sellOrder->setQuantity(0);
                         sellOrder = sellOrders.erase(sellOrder);
                     }
                     else // If the seller has more to sell than the buyer requested
                     {
-                        transactionRecorder.recordTransaction(sellOrder->getOrderID(), sellOrder->getClientOrderId(), name, sellOrder->getSide(), "PFill", order.getQuantity(), price);
+                        transactionRecorder.recordTransaction(sellOrder->getOrderID(), sellOrder->getClientOrderId(), name, sellOrder->getSide(), "PFill", order.getQuantity(), price, validationMessage);
                         sellOrder->setQuantity(sellOrder->getQuantity() - order.getQuantity());
                         sellOrder++;
                     }
@@ -42,9 +42,9 @@ void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecor
                 }
                 else // if the current seller has less than the buyer's required amount
                 {
-                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "PFill", sellOrder->getQuantity(), price);
+                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "PFill", sellOrder->getQuantity(), price, validationMessage);
 
-                    transactionRecorder.recordTransaction(sellOrder->getOrderID(), sellOrder->getClientOrderId(), name, sellOrder->getSide(), "Fill", sellOrder->getQuantity(), price);
+                    transactionRecorder.recordTransaction(sellOrder->getOrderID(), sellOrder->getClientOrderId(), name, sellOrder->getSide(), "Fill", sellOrder->getQuantity(), price, validationMessage);
 
                     order.setQuantity(order.getQuantity() - sellOrder->getQuantity());
                     sellOrder->setQuantity(0);
@@ -61,7 +61,7 @@ void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecor
             if (order.getQuantity() == baseQuantity)
             {
                 // status NEW
-                transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "New", order.getQuantity(), order.getPrice());
+                transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "New", order.getQuantity(), order.getPrice(), validationMessage);
             }
             OrderBook::insertBuyOrder(order);
         }
@@ -75,17 +75,17 @@ void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecor
                 int price = buyOrder->getPrice();
                 if (order.getQuantity() <= buyOrder->getQuantity())
                 {
-                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "Fill", baseQuantity, price);
+                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "Fill", baseQuantity, price, validationMessage);
 
                     if (order.getQuantity() == buyOrder->getQuantity())
                     {
-                        transactionRecorder.recordTransaction(buyOrder->getOrderID(), buyOrder->getClientOrderId(), name, buyOrder->getSide(), "Fill", buyOrder->getQuantity(), price);
+                        transactionRecorder.recordTransaction(buyOrder->getOrderID(), buyOrder->getClientOrderId(), name, buyOrder->getSide(), "Fill", buyOrder->getQuantity(), price, validationMessage);
                         buyOrder->setQuantity(0);
                         buyOrder = buyOrders.erase(buyOrder);
                     }
                     else
                     {
-                        transactionRecorder.recordTransaction(buyOrder->getOrderID(), buyOrder->getClientOrderId(), name, buyOrder->getSide(), "PFill", order.getQuantity(), price);
+                        transactionRecorder.recordTransaction(buyOrder->getOrderID(), buyOrder->getClientOrderId(), name, buyOrder->getSide(), "PFill", order.getQuantity(), price, validationMessage);
                         buyOrder->setQuantity(buyOrder->getQuantity() - order.getQuantity());
                         buyOrder++;
                     }
@@ -95,9 +95,9 @@ void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecor
                 }
                 else
                 {
-                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "PFill", buyOrder->getQuantity(), price);
+                    transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "PFill", buyOrder->getQuantity(), price, validationMessage);
 
-                    transactionRecorder.recordTransaction(buyOrder->getOrderID(), buyOrder->getClientOrderId(), name, buyOrder->getSide(), "Fill", buyOrder->getQuantity(), price);
+                    transactionRecorder.recordTransaction(buyOrder->getOrderID(), buyOrder->getClientOrderId(), name, buyOrder->getSide(), "Fill", buyOrder->getQuantity(), price, validationMessage);
 
                     order.setQuantity(order.getQuantity() - buyOrder->getQuantity());
                     buyOrder->setQuantity(0);
@@ -114,7 +114,7 @@ void OrderBook::processOrder(Order &order, TransactionRecorder &transactionRecor
             if (order.getQuantity() == baseQuantity)
             {
                 // status NEW
-                transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "New", order.getQuantity(), order.getPrice());
+                transactionRecorder.recordTransaction(order.getOrderID(), order.getClientOrderId(), name, order.getSide(), "New", order.getQuantity(), order.getPrice(), validationMessage);
             }
             OrderBook::insertSellOrder(order);
         }

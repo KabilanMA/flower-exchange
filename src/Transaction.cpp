@@ -5,11 +5,11 @@
 #include <sstream>
 
 // Constructor definition
-Transaction::Transaction(std::string orderID, std::string clientOrderID, std::string instrument, std::string side, std::string status, std::string quantity, std::string price) : orderID(orderID), clientOrderID(clientOrderID), instrument(instrument), side(side), status(status), quantity(quantity), price(price)
+Transaction::Transaction(std::string orderID, std::string clientOrderID, std::string instrument, std::string side, std::string status, std::string quantity, std::string price, std::string validationMessage) : orderID(orderID), clientOrderID(clientOrderID), instrument(instrument), side(side), status(status), quantity(quantity), price(price), reason(validationMessage)
 {
 }
 
-Transaction::Transaction(std::string orderID, std::string clientOrderID, Order::InstrumentType instrument, int side, std::string status, int quantity, double price) : orderID(orderID), clientOrderID(clientOrderID), instrument(Order::instrumentTypeToString(instrument)), side(std::to_string(side)), status(status), quantity(std::to_string(quantity)), price(Transaction::doubleToMoneyString(price))
+Transaction::Transaction(std::string orderID, std::string clientOrderID, Order::InstrumentType instrument, int side, std::string status, int quantity, double price, std::string validationMessage) : orderID(orderID), clientOrderID(clientOrderID), instrument(Order::instrumentTypeToString(instrument)), side(std::to_string(side)), status(status), quantity(std::to_string(quantity)), price(Transaction::doubleToMoneyString(price)), reason(validationMessage)
 {
 }
 
@@ -47,6 +47,11 @@ std::string Transaction::getPrice() const
 std::string Transaction::getInstrument() const
 {
     return instrument;
+}
+
+std::string Transaction::getReason() const
+{
+    return reason;
 }
 
 std::string Transaction::doubleToMoneyString(double value) const
