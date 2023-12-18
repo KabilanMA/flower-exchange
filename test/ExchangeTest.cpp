@@ -34,7 +34,7 @@ protected:
 };
 
 // End-to-end test for the input - 1
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_1)
 {
     // Arrange: Set up the initial state or conditions
     std::string orderCsvPath = "../Test_Samples/inputs/orders-1.csv";
@@ -56,7 +56,7 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 }
 
 // End-to-end test for the input 2
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_2)
 {
     std::string orderCsvPath = "../Test_Samples/inputs/orders-2.csv";
     std::string executeRepCsvPath = "../Test_Samples/output/output-2.csv";
@@ -72,7 +72,7 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 }
 
 // End-to-end test for the input 3
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_3)
 {
     std::string orderCsvPath = "../Test_Samples/inputs/orders-3.csv";
     std::string executeRepCsvPath = "../Test_Samples/output/output-3.csv";
@@ -88,7 +88,7 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 }
 
 // End-to-end test for the input 4
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_4)
 {
     std::string orderCsvPath = "../Test_Samples/inputs/orders-4.csv";
     std::string executeRepCsvPath = "../Test_Samples/output/output-4.csv";
@@ -105,7 +105,7 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 
 
 // End-to-end test for the input 5
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_5)
 {
     std::string orderCsvPath = "../Test_Samples/inputs/orders-5.csv";
     std::string executeRepCsvPath = "../Test_Samples/output/output-5.csv";
@@ -122,7 +122,7 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 
 
 // End-to-end test for the input 5
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_6)
 {
     std::string orderCsvPath = "../Test_Samples/inputs/orders-5.csv";
     std::string executeRepCsvPath = "../Test_Samples/output/output-5.csv";
@@ -139,7 +139,7 @@ TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
 
 
 // End-to-end test for the input 7
-TEST_F(ExchangeEndToEndTest, FullFunctionalityTest)
+TEST_F(ExchangeEndToEndTest, FullFunctionalityTest_7)
 {
     std::string orderCsvPath = "../Test_Samples/inputs/orders-7.csv";
     std::string executeRepCsvPath = "../Test_Samples/output/output-7.csv";
