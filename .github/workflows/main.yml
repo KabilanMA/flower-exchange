@@ -12,14 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Vcpkg
-      uses: microsoft/vcpkg-setup@v2
-      with:
-        vcpkg-commit: '1c9ec1978a6b0c2b39c9e9554a96e3e275f7556e'
-
-    - name: Install GTest with Vcpkg
+    - name: Install gtest manually
       run: |
-        ./vcpkg install gtest
+        sudo apt-get install libgtest-dev
 
     - name: Build the tests
       run: |
