@@ -17,7 +17,7 @@ jobs:
 
     - name: Build the tests
       run: |
-        cd test
+        cd ${RUNNER_WORKSPACE}/test
         mkdir build
         cd build
         cmake -DCMAKE_TOOLCHAIN_FILE=${RUNNER_WORKSPACE}/toolchain.cmake ..
