@@ -186,7 +186,7 @@ std::string Exchange::validateInput(const std::vector<std::string> &row) const
     // validate Quantity
     if (row[3] == "")
     {
-        reason = "Invalid Quantity";
+        reason = "Invalid Size";
         return reason;
     }
     else
@@ -197,13 +197,13 @@ std::string Exchange::validateInput(const std::vector<std::string> &row) const
             quantity = std::stoi(row[3]);
             if (quantity % 10 != 0)
             {
-                reason = "Invalid Quantity";
+                reason = "Invalid Size";
                 return reason;
             }
         }
         catch (const std::invalid_argument &e)
         {
-            reason = "Invalid Quantity";
+            reason = "Invalid Size";
             return reason;
         }
     }
@@ -219,7 +219,7 @@ std::string Exchange::validateInput(const std::vector<std::string> &row) const
         int price;
         try
         {
-            price = std::stod(row[2]);
+            price = std::stod(row[4]);
             if (price <= 0.0)
             {
                 reason = "Invalid Price";
