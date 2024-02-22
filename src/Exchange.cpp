@@ -200,6 +200,11 @@ std::string Exchange::validateInput(const std::vector<std::string> &row) const
                 reason = "Invalid Size";
                 return reason;
             }
+            if (quantity > 1000  || quantity <100)
+            {
+                reason = "Invalid Size";
+                return reason;
+            }
         }
         catch (const std::invalid_argument &e)
         {
